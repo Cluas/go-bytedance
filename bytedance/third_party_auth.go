@@ -9,8 +9,8 @@ import (
 
 // ComponentAccessToken is response of API v1/auth/tp/token.
 type ComponentAccessToken struct {
-	ComponentAccessToken string    `json:"component_access_token"`
-	ExpiresIn            time.Time `json:"expires_in"`
+	ComponentAccessToken string        `json:"component_access_token"`
+	ExpiresIn            time.Duration `json:"expires_in"`
 }
 
 // GetComponentAccessToken gets a component_access_token.
