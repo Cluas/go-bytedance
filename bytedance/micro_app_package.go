@@ -18,10 +18,10 @@ type UploadPackageRequest struct {
 
 // UploadPackage 提交代码
 // 为授权小程序提交代码（提交成功后，授权小程序具有测试版本）.
-func (s *MicroAppService) UploadPackage(ctx context.Context, componentAppID, componentAccessToken string,
+func (s *MicroAppService) UploadPackage(ctx context.Context, componentAppID, authorizerAccessToken string,
 	body *UploadPackageRequest) (*http.Response, error) {
-	u := fmt.Sprintf("v1/microapp/package/upload?component_app_id=%v&component_access_token=%v",
-		componentAccessToken, componentAppID)
+	u := fmt.Sprintf("v1/microapp/package/upload?component_app_id=%v&authorizer_access_token=%v",
+		authorizerAccessToken, componentAppID)
 
 	req, err := s.client.NewRequest(http.MethodPost, u, body)
 	if err != nil {
@@ -38,10 +38,10 @@ type PackageAuditHosts struct {
 
 // GetPackageAuditHosts 获取可选审核宿主端列表
 // 获取可以提审的端，作为参数传入提审代码v2接口中
-func (s *MicroAppService) GetPackageAuditHosts(ctx context.Context, componentAppID, componentAccessToken string) (
+func (s *MicroAppService) GetPackageAuditHosts(ctx context.Context, componentAppID, authorizerAccessToken string) (
 	*PackageAuditHosts, *http.Response, error) {
-	u := fmt.Sprintf("v1/microapp/package/audit_hosts?component_app_id=%v&component_access_token=%v",
-		componentAppID, componentAccessToken)
+	u := fmt.Sprintf("v1/microapp/package/audit_hosts?component_app_id=%v&authorizer_access_token=%v",
+		componentAppID, authorizerAccessToken)
 
 	req, err := s.client.NewRequest(http.MethodGet, u, nil)
 	if err != nil {
@@ -63,10 +63,10 @@ type CommitAuditPackageRequest struct {
 
 // CommitAuditPackage 提审代码 v2 支持传入宿主端参数
 // 为授权小程序提审代码（审核成功后，授权小程序具有审核版本）
-func (s *MicroAppService) CommitAuditPackage(ctx context.Context, componentAppID, componentAccessToken string,
+func (s *MicroAppService) CommitAuditPackage(ctx context.Context, componentAppID, authorizerAccessToken string,
 	body *UploadPackageRequest) (*http.Response, error) {
-	u := fmt.Sprintf("v2/microapp/package/audit?component_app_id=%v&component_access_token=%v",
-		componentAccessToken, componentAppID)
+	u := fmt.Sprintf("v2/microapp/package/audit?component_app_id=%v&authorizer_access_token=%v",
+		authorizerAccessToken, componentAppID)
 
 	req, err := s.client.NewRequest(http.MethodPost, u, body)
 	if err != nil {
@@ -77,10 +77,10 @@ func (s *MicroAppService) CommitAuditPackage(ctx context.Context, componentAppID
 
 // ReleasePackage 发布代码
 // 为授权小程序发布代码（发布成功后，授权小程序具有线上版本）
-func (s *MicroAppService) ReleasePackage(ctx context.Context, componentAppID, componentAccessToken string) (
+func (s *MicroAppService) ReleasePackage(ctx context.Context, componentAppID, authorizerAccessToken string) (
 	*http.Response, error) {
-	u := fmt.Sprintf("v2/microapp/package/release?component_app_id=%v&component_access_token=%v",
-		componentAccessToken, componentAppID)
+	u := fmt.Sprintf("v2/microapp/package/release?component_app_id=%v&authorizer_access_token=%v",
+		authorizerAccessToken, componentAppID)
 
 	req, err := s.client.NewRequest(http.MethodPost, u, nil)
 	if err != nil {
@@ -91,10 +91,10 @@ func (s *MicroAppService) ReleasePackage(ctx context.Context, componentAppID, co
 
 // RollbackPackage 回退代码版本
 // 为授权小程序回退代码版本，此操作可能需要等待一会（如果可以回退，执行成功后，授权小程序将回退至上一个线上版本）
-func (s *MicroAppService) RollbackPackage(ctx context.Context, componentAppID, componentAccessToken string) (
+func (s *MicroAppService) RollbackPackage(ctx context.Context, componentAppID, authorizerAccessToken string) (
 	*http.Response, error) {
-	u := fmt.Sprintf("v2/microapp/package/rollback?component_app_id=%v&component_access_token=%v",
-		componentAccessToken, componentAppID)
+	u := fmt.Sprintf("v2/microapp/package/rollback?component_app_id=%v&authorizer_access_token=%v",
+		authorizerAccessToken, componentAppID)
 
 	req, err := s.client.NewRequest(http.MethodPost, u, nil)
 	if err != nil {
@@ -165,10 +165,10 @@ type PackageVersions struct {
 
 // GetPackageVersions 获取小程序版本列表信息
 // 返回的结果列表中一共会展示三种状态的小程序代码版本信息，包括测试版本、审核版本、线上版本。
-func (s *MicroAppService) GetPackageVersions(ctx context.Context, componentAppID, componentAccessToken string) (
+func (s *MicroAppService) GetPackageVersions(ctx context.Context, componentAppID, authorizerAccessToken string) (
 	*PackageVersions, *http.Response, error) {
-	u := fmt.Sprintf("v1/microapp/package/versions?component_app_id=%v&component_access_token=%v",
-		componentAppID, componentAccessToken)
+	u := fmt.Sprintf("v1/microapp/package/versions?component_app_id=%v&authorizer_access_token=%v",
+		componentAppID, authorizerAccessToken)
 
 	req, err := s.client.NewRequest(http.MethodGet, u, nil)
 	if err != nil {

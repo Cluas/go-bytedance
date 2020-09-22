@@ -69,10 +69,10 @@ type AppInfo struct {
 	SubjectAuditInfo       *SubjectAuditInfo       `json:"subject_audit_info"`
 }
 
-func (s *MicroAppService) GetAppInfo(ctx context.Context, componentAppID, componentAccessToken string) (
+func (s *MicroAppService) GetAppInfo(ctx context.Context, componentAppID, authorizerAccessToken string) (
 	*AppInfo, *http.Response, error) {
-	u := fmt.Sprintf("v1/microapp/app/info?component_app_id=%v&component_access_token=%v",
-		componentAppID, componentAccessToken)
+	u := fmt.Sprintf("v1/microapp/app/info?component_app_id=%v&authorizer_access_token=%v",
+		componentAppID, authorizerAccessToken)
 
 	req, err := s.client.NewRequest(http.MethodGet, u, nil)
 	if err != nil {
@@ -94,10 +94,10 @@ type DownloadQrcodeRequest struct {
 }
 
 // DownloadQrcode 获取二维码
-func (s *MicroAppService) DownloadQrcode(ctx context.Context, componentAppID, componentAccessToken string,
+func (s *MicroAppService) DownloadQrcode(ctx context.Context, componentAppID, authorizerAccessToken string,
 	body *DownloadQrcodeRequest) (*http.Response, error) {
-	u := fmt.Sprintf("v1/microapp/app/qrcode?component_app_id=%v&component_access_token=%v",
-		componentAccessToken, componentAppID)
+	u := fmt.Sprintf("v1/microapp/app/qrcode?component_app_id=%v&authorizer_access_token=%v",
+		authorizerAccessToken, componentAppID)
 
 	req, err := s.client.NewRequest(http.MethodGet, u, body)
 	if err != nil {
@@ -107,9 +107,9 @@ func (s *MicroAppService) DownloadQrcode(ctx context.Context, componentAppID, co
 }
 
 // CheckAppName 小程序名称检测
-func (s *MicroAppService) CheckAppName(ctx context.Context, componentAppID, componentAccessToken, appName string) (*http.Response, error) {
-	u := fmt.Sprintf("v1/microapp/app/check_app_name?component_app_id=%v&component_access_token=%v&app_name=%v",
-		componentAccessToken, componentAppID, appName)
+func (s *MicroAppService) CheckAppName(ctx context.Context, componentAppID, authorizerAccessToken, appName string) (*http.Response, error) {
+	u := fmt.Sprintf("v1/microapp/app/check_app_name?component_app_id=%v&authorizer_access_token=%v&app_name=%v",
+		authorizerAccessToken, componentAppID, appName)
 
 	req, err := s.client.NewRequest(http.MethodGet, u, nil)
 	if err != nil {
@@ -125,10 +125,10 @@ type ModifyAppNameRequest struct {
 }
 
 // ModifyAppName 修改小程序名称
-func (s *MicroAppService) ModifyAppName(ctx context.Context, componentAppID, componentAccessToken string,
+func (s *MicroAppService) ModifyAppName(ctx context.Context, componentAppID, authorizerAccessToken string,
 	body *ModifyAppNameRequest) (*http.Response, error) {
-	u := fmt.Sprintf("v1/microapp/app/modify_app_name?component_app_id=%v&component_access_token=%v",
-		componentAccessToken, componentAppID)
+	u := fmt.Sprintf("v1/microapp/app/modify_app_name?component_app_id=%v&authorizer_access_token=%v",
+		authorizerAccessToken, componentAppID)
 
 	req, err := s.client.NewRequest(http.MethodGet, u, body)
 	if err != nil {
@@ -143,10 +143,10 @@ type ModifyAppIntroRequest struct {
 }
 
 // ModifyIntro 修改小程序简介
-func (s *MicroAppService) ModifyIntro(ctx context.Context, componentAppID, componentAccessToken string,
+func (s *MicroAppService) ModifyIntro(ctx context.Context, componentAppID, authorizerAccessToken string,
 	body *ModifyAppIntroRequest) (*http.Response, error) {
-	u := fmt.Sprintf("v1/microapp/app/modify_app_intro?component_app_id=%v&component_access_token=%v",
-		componentAccessToken, componentAppID)
+	u := fmt.Sprintf("v1/microapp/app/modify_app_intro?component_app_id=%v&authorizer_access_token=%v",
+		authorizerAccessToken, componentAppID)
 
 	req, err := s.client.NewRequest(http.MethodGet, u, body)
 	if err != nil {
@@ -161,10 +161,10 @@ type ModifyAppIconRequest struct {
 }
 
 // ModifyAppIcon 修改小程序图标
-func (s *MicroAppService) ModifyAppIcon(ctx context.Context, componentAppID, componentAccessToken string,
+func (s *MicroAppService) ModifyAppIcon(ctx context.Context, componentAppID, authorizerAccessToken string,
 	body *ModifyAppIconRequest) (*http.Response, error) {
-	u := fmt.Sprintf("v1/microapp/app/modify_app_intro?component_app_id=%v&component_access_token=%v",
-		componentAccessToken, componentAppID)
+	u := fmt.Sprintf("v1/microapp/app/modify_app_intro?component_app_id=%v&authorizer_access_token=%v",
+		authorizerAccessToken, componentAppID)
 
 	req, err := s.client.NewRequest(http.MethodGet, u, body)
 	if err != nil {
@@ -192,10 +192,10 @@ type ServerDomain struct {
 }
 
 // ModifyServerDomain 修改服务域名
-func (s *MicroAppService) ModifyServerDomain(ctx context.Context, componentAppID, componentAccessToken string,
+func (s *MicroAppService) ModifyServerDomain(ctx context.Context, componentAppID, authorizerAccessToken string,
 	body *ModifyServerDomainRequest) (*http.Response, error) {
-	u := fmt.Sprintf("v1/microapp/app/modify_server_domain?component_app_id=%v&component_access_token=%v",
-		componentAccessToken, componentAppID)
+	u := fmt.Sprintf("v1/microapp/app/modify_server_domain?component_app_id=%v&authorizer_access_token=%v",
+		authorizerAccessToken, componentAppID)
 
 	req, err := s.client.NewRequest(http.MethodGet, u, body)
 	if err != nil {
@@ -212,10 +212,10 @@ type ModifyWebviewDomainRequest struct {
 }
 
 // ModifyWebviewDomain 修改webview域名
-func (s *MicroAppService) ModifyWebviewDomain(ctx context.Context, componentAppID, componentAccessToken string,
+func (s *MicroAppService) ModifyWebviewDomain(ctx context.Context, componentAppID, authorizerAccessToken string,
 	body *ModifyWebviewDomainRequest) (*http.Response, error) {
-	u := fmt.Sprintf("v1/microapp/app/modify_webview_domain?component_app_id=%v&component_access_token=%v",
-		componentAccessToken, componentAppID)
+	u := fmt.Sprintf("v1/microapp/app/modify_webview_domain?component_app_id=%v&authorizer_access_token=%v",
+		authorizerAccessToken, componentAppID)
 
 	req, err := s.client.NewRequest(http.MethodGet, u, body)
 	if err != nil {
