@@ -4,13 +4,12 @@ import (
 	"context"
 	"fmt"
 	"net/http"
-	"time"
 )
 
 // ComponentAccessToken is response of API v1/auth/tp/token.
 type ComponentAccessToken struct {
-	ComponentAccessToken string        `json:"component_access_token"`
-	ExpiresIn            time.Duration `json:"expires_in"`
+	ComponentAccessToken string `json:"component_access_token"`
+	ExpiresIn            int    `json:"expires_in"`
 }
 
 // GetComponentAccessToken gets a component_access_token.
@@ -42,8 +41,8 @@ type CreatePreAuthCodeRequest struct {
 
 // PreAuthCode 创建预授权码返回值
 type PreAuthCode struct {
-	PreAuthCode string    `json:"pre_auth_code"`
-	ExpiresIn   time.Time `json:"expires_in"`
+	PreAuthCode string `json:"pre_auth_code"`
+	ExpiresIn   int    `json:"expires_in"`
 }
 
 // CreatePreAuthCode creates a pre_auth_code for auth.
@@ -79,7 +78,7 @@ type AuthorizePermission struct {
 type OAuthToken struct {
 	AuthorizeAccessToken  string                 `json:"authorize_access_token"`
 	AuthorizeRefreshToken string                 `json:"authorize_refresh_token"`
-	ExpiresIn             time.Time              `json:"expires_in"`
+	ExpiresIn             int                    `json:"expires_in"`
 	AuthorizerAppID       string                 `json:"authorizer_app_id"`
 	AuthorizePermission   []*AuthorizePermission `json:"authorize_permission"`
 }
@@ -145,8 +144,8 @@ func (s *ThirdPartyService) RefreshOAuthToken(ctx context.Context, componentAppI
 
 // RetrieveAuthorizationCodeResponse 找回授权码
 type RetrieveAuthorizationCodeResponse struct {
-	AuthorizationCode string    `json:"authorization_code"`
-	ExpiresIn         time.Time `json:"expires_in"`
+	AuthorizationCode string `json:"authorization_code"`
+	ExpiresIn         int    `json:"expires_in"`
 }
 
 // RetrieveAuthorizationCode retrieve authorizer_access_token.
