@@ -11,7 +11,7 @@ import (
 )
 
 // DecryptMsg 消息解密
-func DecryptMsg(encodeAesKey string, encryptMsg string) {
+func DecryptMsg(encodeAesKey string, encryptMsg string) map[string]interface{} {
 	// get aes key
 	AESKey, _ := base64.StdEncoding.DecodeString(encodeAesKey + "=")
 
@@ -29,6 +29,7 @@ func DecryptMsg(encodeAesKey string, encryptMsg string) {
 	// 返回解析的消息 json 串
 	var result map[string]interface{}
 	_ = json.Unmarshal([]byte(msgBody), &result)
+	return result
 }
 
 // Decrypt 解密
