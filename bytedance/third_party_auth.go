@@ -79,7 +79,7 @@ type OAuthToken struct {
 	AuthorizeAccessToken  string                 `json:"authorize_access_token"`
 	AuthorizeRefreshToken string                 `json:"authorize_refresh_token"`
 	ExpiresIn             int64                  `json:"expires_in"`
-	AuthorizerAppID       string                 `json:"authorizer_app_id"`
+	AuthorizerAppID       string                 `json:"authorizer_appid"`
 	AuthorizePermission   []*AuthorizePermission `json:"authorize_permission"`
 }
 
@@ -153,7 +153,7 @@ type RetrieveAuthorizationCodeResponse struct {
 func (s *ThirdPartyService) RetrieveAuthorizationCode(ctx context.Context, componentAppID, componentAccessToken,
 	authorizationAppID string) (*RetrieveAuthorizationCodeResponse, *http.Response, error) {
 	u := fmt.Sprintf(
-		"v1/oauth/retrieve?component_appid=%v&component_access_token=%v&authorzation_app_id=%v",
+		"v1/oauth/retrieve?component_appid=%v&component_access_token=%v&authorzation_appid=%v",
 		componentAppID,
 		componentAccessToken,
 		authorizationAppID,
