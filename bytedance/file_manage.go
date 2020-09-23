@@ -22,7 +22,7 @@ func (f File) Read(p []byte) (n int, err error) {
 // DownloadWebViewFile 下载域名校验文件
 func (s *ThirdPartyService) DownloadWebViewFile(ctx context.Context, componentAppID, componentAccessToken string,
 	body *DeleteTemplateRequest) (*http.Response, error) {
-	u := fmt.Sprintf("v1/tp/download/webview_file?component_app_id=%v&component_access_token=%v",
+	u := fmt.Sprintf("v1/tp/download/webview_file?component_appid=%v&component_access_token=%v",
 		componentAccessToken, componentAppID)
 
 	req, err := s.client.NewRequest(http.MethodGet, u, body)
@@ -57,7 +57,7 @@ func (u UploadPicMaterialRequest) MultipartParams() map[string]io.Reader {
 // 目前只支持bmp、jpeg、jpg、png格式。
 func (s *ThirdPartyService) UploadPicMaterial(ctx context.Context, componentAppID, componentAccessToken string,
 	body *UploadPicMaterialRequest) (string, *http.Response, error) {
-	u := fmt.Sprintf("v1/tp/upload_pic_material?component_app_id=%v&component_access_token=%v",
+	u := fmt.Sprintf("v1/tp/upload_pic_material?component_appid=%v&component_access_token=%v",
 		componentAccessToken, componentAppID)
 	var address string
 	req, err := s.client.NewRequest(http.MethodPost, u, body)
