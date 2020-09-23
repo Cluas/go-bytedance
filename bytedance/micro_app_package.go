@@ -64,7 +64,7 @@ type CommitAuditPackageRequest struct {
 // CommitAuditPackage 提审代码 v2 支持传入宿主端参数
 // 为授权小程序提审代码（审核成功后，授权小程序具有审核版本）
 func (s *MicroAppService) CommitAuditPackage(ctx context.Context, componentAppID, authorizerAccessToken string,
-	body *UploadPackageRequest) (*http.Response, error) {
+	body *CommitAuditPackageRequest) (*http.Response, error) {
 	u := fmt.Sprintf("v2/microapp/package/audit?component_appid=%v&authorizer_access_token=%v",
 		authorizerAccessToken, componentAppID)
 
