@@ -222,13 +222,7 @@ func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) (*htt
 			io.Copy(w, resp.Body)
 		}
 	} else {
-		decErr := json.NewDecoder(resp.Body).Decode(v)
-		if decErr == io.EOF {
-			decErr = nil // ignore io.EOF errors caused by empty response body
-		}
-		if decErr != nil {
-			err = decErr
-		}
+		err = json.Unmarshal(response.Data, v)
 	}
 	return resp, err
 
