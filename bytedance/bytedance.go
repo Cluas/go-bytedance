@@ -43,7 +43,7 @@ type service struct {
 // NewClient returns a new bytedance API client.
 func NewClient() *Client {
 	baseURL, _ := url.Parse(defaultBaseURL)
-	c := Client{BaseURL: baseURL, UserAgent: userAgent}
+	c := Client{BaseURL: baseURL, UserAgent: userAgent, client: &http.Client{}}
 	c.common.client = &c
 	c.ThirdParty = (*ThirdPartyService)(&c.common)
 	c.MicroApp = (*MicroAppService)(&c.common)
