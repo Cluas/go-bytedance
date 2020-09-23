@@ -17,7 +17,7 @@ type ComponentAccessToken struct {
 // 每个令牌有效期是 2 小时
 func (s *ThirdPartyService) GetComponentAccessToken(ctx context.Context, componentAppID, componentAppSecret,
 	componentTicket string) (*ComponentAccessToken, *http.Response, error) {
-	u := fmt.Sprintf("v1/auth/tp/token?component_appid=%v&component_appsecret=%v&compcomponent_ticket=%v",
+	u := fmt.Sprintf("v1/auth/tp/token?component_appid=%v&component_appsecret=%v&component_ticket=%v",
 		componentAppID, componentAppSecret, componentTicket)
 
 	req, err := s.client.NewRequest(http.MethodGet, u, nil)
