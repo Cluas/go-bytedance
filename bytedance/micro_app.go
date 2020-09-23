@@ -223,3 +223,29 @@ func (s *MicroAppService) ModifyWebviewDomain(ctx context.Context, componentAppI
 	}
 	return s.client.Do(ctx, req, nil)
 }
+
+// Session 返回
+type Session struct {
+	SessionKey      string `json:"session_key"`
+	OpenID          string `json:"openid"`
+	AnonymousOpenID string `json:"anonymous_openid"`
+}
+
+// Code2Session code2session
+func (s *MicroAppService) Code2Session(ctx context.Context, componentAppID, authorizerAccessToken,
+	code, anonymousCode string) (*Session, *http.Response, error) {
+	u := fmt.Sprintf("v1/microapp/code2session?component_appid=%v&authorizer_access_token=%v&code=%v&anonymous_code=%v",
+		componentAppID, authorizerAccessToken, code, anonymousCode)
+
+	req, err := s.client.NewRequest(http.MethodGet, u, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	session := new(Session)
+	resp, err := s.client.Do(ctx, req, code)
+	if err != nil {
+		return nil, resp, err
+	}
+	return session, resp, nil
+}
