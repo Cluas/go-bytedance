@@ -56,9 +56,9 @@ type SubjectAuditInfo struct {
 
 // AppInfo 应用信息
 type AppInfo struct {
-	AppID                  string                  `json:"app_i_d"`
+	AppID                  string                  `json:"app_id"`
 	AppType                int                     `json:"app_type"`
-	AppStatus              int                     `json:"app_status"`
+	AppState               int                     `json:"app_state"`
 	AppName                string                  `json:"app_name"`
 	NewNameAuditInfo       *NewNameAuditInfo       `json:"new_name_audit_info"`
 	AppIntro               string                  `json:"app_intro"`
