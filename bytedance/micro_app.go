@@ -244,7 +244,7 @@ func (s *MicroAppService) Code2Session(ctx context.Context, componentAppID, auth
 	}
 
 	session := new(Session)
-	resp, err := s.client.Do(ctx, req, code)
+	resp, err := s.client.Do(ctx, req, session)
 	if err != nil {
 		return nil, resp, err
 	}
