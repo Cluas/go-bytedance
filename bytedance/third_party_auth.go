@@ -122,7 +122,7 @@ type RefreshOAuthTokenResponse struct {
 func (s *ThirdPartyService) RefreshOAuthToken(ctx context.Context, componentAppID, componentAccessToken,
 	authorizerRefreshToken, grantType string) (*RefreshOAuthTokenResponse, *http.Response, error) {
 	u := fmt.Sprintf(
-		"v1/oauth/token?component_appid=%v&component_access_token=%v&authorzation_refresh_token=%v&grant_type=%v",
+		"v1/oauth/token?component_appid=%v&component_access_token=%v&authorizer_refresh_token=%v&grant_type=%v",
 		componentAppID,
 		componentAccessToken,
 		authorizerRefreshToken,
