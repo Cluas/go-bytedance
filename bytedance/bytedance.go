@@ -220,20 +220,20 @@ func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) (*htt
 	if v != nil {
 		if w, ok := v.(io.Writer); ok {
 			io.Copy(w, resp.Body)
-		}
-	} else {
-		var data io.Reader
-		if len(response.Data) > 0 {
-			data = bytes.NewReader(response.Data)
 		} else {
-			data = resp.Body
-		}
-		decErr := json.NewDecoder(data).Decode(v)
-		if decErr == io.EOF {
-			decErr = nil // ignore io.EOF errors caused by empty response body
-		}
-		if decErr != nil {
-			err = decErr
+			var data io.Reader
+			if len(response.Data) > 0 {
+				data = bytes.NewReader(response.Data)
+			} else {
+				data = resp.Body
+			}
+			decErr := json.NewDecoder(data).Decode(v)
+			if decErr == io.EOF {
+				decErr = nil // ignore io.EOF errors caused by empty response body
+			}
+			if decErr != nil {
+				err = decErr
+			}
 		}
 	}
 	return resp, err
