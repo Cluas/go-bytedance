@@ -76,11 +76,11 @@ type AuthorizePermission struct {
 
 // OAuthToken 获取接口调用凭据
 type OAuthToken struct {
-	AuthorizeAccessToken  string                 `json:"authorize_access_token"`
-	AuthorizeRefreshToken string                 `json:"authorize_refresh_token"`
-	ExpiresIn             int64                  `json:"expires_in"`
-	AuthorizerAppID       string                 `json:"authorizer_appid"`
-	AuthorizePermission   []*AuthorizePermission `json:"authorize_permission"`
+	AuthorizerAccessToken  string                 `json:"authorizer_access_token"`
+	AuthorizerRefreshToken string                 `json:"authorizer_refresh_token"`
+	ExpiresIn              int64                  `json:"expires_in"`
+	AuthorizerAppID        string                 `json:"authorizer_appid"`
+	AuthorizePermission    []*AuthorizePermission `json:"authorize_permission"`
 }
 
 // GetOAuthToken get authorizer_access_token.
@@ -112,9 +112,9 @@ func (s *ThirdPartyService) GetOAuthToken(ctx context.Context, componentAppID, c
 
 // RefreshOAuthTokenResponse 刷新授权小程序的接口调用凭据返回值
 type RefreshOAuthTokenResponse struct {
-	AuthorizeAccessToken  string `json:"authorize_access_token"`
-	AuthorizeRefreshToken string `json:"authorize_refresh_token"`
-	ExpiresIn             int64  `json:"expires_in"`
+	AuthorizerAccessToken  string `json:"authorizer_access_token"`
+	AuthorizerRefreshToken string `json:"authorizer_refresh_token"`
+	ExpiresIn              int64  `json:"expires_in"`
 }
 
 // RefreshOAuthToken refresh authorizer_access_token
