@@ -142,21 +142,28 @@ func (r *ErrorResponse) Error() string {
 		r.ErrNo, r.Message)
 }
 
-// CheckResponse checks the API response for errors, and returns them if present.
-// API error responses are expected to have response body.
-// If none error find, return bytedance.Response.
-func CheckResponse(r *http.Response, reqBody []byte) error {
-	errResponse := &ErrorResponse{
-		Response:    r,
-		requestBody: reqBody,
-	}
+func newResponse(r *http.Response) (*Response, error) {
+	response := Response{Response: r}
 	data, err := ioutil.ReadAll(r.Body)
 	if err == nil && data != nil {
-		if err = json.Unmarshal(data, &errResponse); err != nil {
-			return err
+		if err = json.Unmarshal(data, &response); err != nil {
+			return nil, err
 		}
 	}
 	r.Body = ioutil.NopCloser(bytes.NewBuffer(data))
+	return &response, nil
+}
+
+// CheckResponse checks the API response for errors, and returns them if present.
+// API error responses are expected to have response body.
+// If none error find, return bytedance.Response.
+func CheckResponse(r *Response, reqBody []byte) error {
+	errResponse := &ErrorResponse{
+		Response:    r.Response,
+		ErrNo:       r.ErrNo,
+		Message:     r.Message,
+		requestBody: reqBody,
+	}
 	switch errResponse.ErrNo {
 	case 0:
 		return nil
@@ -165,9 +172,9 @@ func CheckResponse(r *http.Response, reqBody []byte) error {
 	}
 }
 
-// Do Sends an API request and returns the API response. The API reponse is
+// Do Sends an API request and returns the API response. The API response is
 // JSON decoded and stored in the value pointed to by v, or returned as an
-// error if an API error has occured. If v implements the io.Writer interface,
+// error if an API error has occurred. If v implements the io.Writer interface,
 // the raw response body will be written to v, without attempting to first
 // decode it.
 //
@@ -201,21 +208,32 @@ func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) (*htt
 
 	}
 
-	if err := CheckResponse(resp, body); err != nil {
+	response, err := newResponse(resp)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := CheckResponse(response, body); err != nil {
 		return resp, err
 	}
 
 	if v != nil {
 		if w, ok := v.(io.Writer); ok {
 			io.Copy(w, resp.Body)
+		}
+	} else {
+		var data io.Reader
+		if len(response.Data) > 0 {
+			data = bytes.NewReader(response.Data)
 		} else {
-			decErr := json.NewDecoder(resp.Body).Decode(v)
-			if decErr == io.EOF {
-				decErr = nil // ignore io.EOF errors caused by empty response body
-			}
-			if decErr != nil {
-				err = decErr
-			}
+			data = resp.Body
+		}
+		decErr := json.NewDecoder(data).Decode(v)
+		if decErr == io.EOF {
+			decErr = nil // ignore io.EOF errors caused by empty response body
+		}
+		if decErr != nil {
+			err = decErr
 		}
 	}
 	return resp, err
