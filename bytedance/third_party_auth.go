@@ -90,7 +90,7 @@ type OAuthToken struct {
 func (s *ThirdPartyService) GetOAuthToken(ctx context.Context, componentAppID, componentAccessToken,
 	authorizationCode, grantType string) (*OAuthToken, *http.Response, error) {
 	u := fmt.Sprintf(
-		"v1/oauth/token?component_appid=%v&component_access_token=%v&authorzation_code=%v&grant_type=%v",
+		"v1/oauth/token?component_appid=%v&component_access_token=%v&authorization_code=%v&grant_type=%v",
 		componentAppID,
 		componentAccessToken,
 		authorizationCode,
