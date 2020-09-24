@@ -69,8 +69,14 @@ type AppInfo struct {
 	SubjectAuditInfo       *SubjectAuditInfo       `json:"subject_audit_info"`
 }
 
+// AppInfoResponse 应用信息返回
+type AppInfoResponse struct {
+	Data *AppInfo `json:"data"`
+}
+
+// GetAppInfo 获取应用信息
 func (s *MicroAppService) GetAppInfo(ctx context.Context, componentAppID, authorizerAccessToken string) (
-	*AppInfo, *http.Response, error) {
+	*AppInfoResponse, *http.Response, error) {
 	u := fmt.Sprintf("v1/microapp/app/info?component_appid=%v&authorizer_access_token=%v",
 		componentAppID, authorizerAccessToken)
 
@@ -79,7 +85,7 @@ func (s *MicroAppService) GetAppInfo(ctx context.Context, componentAppID, author
 		return nil, nil, err
 	}
 
-	appInfo := new(AppInfo)
+	appInfo := new(AppInfoResponse)
 	resp, err := s.client.Do(ctx, req, appInfo)
 	if err != nil {
 		return nil, resp, err

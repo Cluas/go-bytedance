@@ -142,28 +142,21 @@ func (r *ErrorResponse) Error() string {
 		r.ErrNo, r.Message)
 }
 
-func newResponse(r *http.Response) (*Response, error) {
-	response := Response{Response: r}
-	data, err := ioutil.ReadAll(r.Body)
-	if err == nil && data != nil {
-		if err = json.Unmarshal(data, &response); err != nil {
-			return nil, err
-		}
-	}
-	r.Body = ioutil.NopCloser(bytes.NewBuffer(data))
-	return &response, nil
-}
-
 // CheckResponse checks the API response for errors, and returns them if present.
 // API error responses are expected to have response body.
 // If none error find, return bytedance.Response.
-func CheckResponse(r *Response, reqBody []byte) error {
+func CheckResponse(r *http.Response, reqBody []byte) error {
 	errResponse := &ErrorResponse{
-		Response:    r.Response,
-		ErrNo:       r.ErrNo,
-		Message:     r.Message,
+		Response:    r,
 		requestBody: reqBody,
 	}
+	data, err := ioutil.ReadAll(r.Body)
+	if err == nil && data != nil {
+		if err = json.Unmarshal(data, &errResponse); err != nil {
+			return err
+		}
+	}
+	r.Body = ioutil.NopCloser(bytes.NewBuffer(data))
 	switch errResponse.ErrNo {
 	case 0:
 		return nil
@@ -208,12 +201,7 @@ func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) (*htt
 
 	}
 
-	response, err := newResponse(resp)
-	if err != nil {
-		return nil, err
-	}
-
-	if err := CheckResponse(response, body); err != nil {
+	if err := CheckResponse(resp, body); err != nil {
 		return resp, err
 	}
 
