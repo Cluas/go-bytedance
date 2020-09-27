@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"time"
 )
 
 // UploadPackageRequest 上传代码请求.
@@ -111,13 +110,13 @@ type Rollback struct {
 
 // VersionCommon 通用返回值
 type VersionCommon struct {
-	Categories      []string  `json:"categories"`
-	Ctime           time.Time `json:"ctime"`
-	DeveloperAvatar string    `json:"developer_avatar"`
-	DeveloperID     string    `json:"developer_id"`
-	DeveloperName   string    `json:"developer_name"`
-	Summary         string    `json:"summary"`
-	Version         string    `json:"version"`
+	Categories      []string   `json:"categories"`
+	Ctime           *Timestamp `json:"ctime"`
+	DeveloperAvatar string     `json:"developer_avatar"`
+	DeveloperID     string     `json:"developer_id"`
+	DeveloperName   string     `json:"developer_name"`
+	Summary         string     `json:"summary"`
+	Version         string     `json:"version"`
 }
 
 // Audit 审核版本返回值

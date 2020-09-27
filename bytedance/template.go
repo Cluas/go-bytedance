@@ -4,15 +4,14 @@ import (
 	"context"
 	"fmt"
 	"net/http"
-	"time"
 )
 
 // Template 模版
 type Template struct {
-	TemplateID  int       `json:"template_id"`
-	UserVersion string    `json:"user_version"`
-	UserDesc    string    `json:"user_desc"`
-	CreateTime  time.Time `json:"create_time"`
+	TemplateID  int        `json:"template_id"`
+	UserVersion string     `json:"user_version"`
+	UserDesc    string     `json:"user_desc"`
+	CreateTime  *Timestamp `json:"create_time"`
 }
 
 // Templates 获取模版列表返回值
@@ -43,10 +42,10 @@ func (s *ThirdPartyService) GetTemplates(ctx context.Context, componentAppID, co
 
 // Draft 草稿
 type Draft struct {
-	DraftID     int       `json:"draft_id"`
-	UserVersion string    `json:"user_version"`
-	UserDesc    string    `json:"user_desc"`
-	CreateTime  time.Time `json:"create_time"`
+	DraftID     int        `json:"draft_id"`
+	UserVersion string     `json:"user_version"`
+	UserDesc    string     `json:"user_desc"`
+	CreateTime  *Timestamp `json:"create_time"`
 }
 
 // Drafts 获取草稿列表返回值
