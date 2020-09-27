@@ -146,9 +146,8 @@ func newResponse(r *http.Response) (*Response, error) {
 	response := Response{Response: r}
 	data, err := ioutil.ReadAll(r.Body)
 	if err == nil && data != nil {
-		if err = json.Unmarshal(data, &response); err != nil {
-			return nil, err
-		}
+		// ignore err because maybe image response
+		_ = json.Unmarshal(data, &response)
 	}
 	r.Body = ioutil.NopCloser(bytes.NewBuffer(data))
 	return &response, nil
