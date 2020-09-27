@@ -20,7 +20,7 @@ type UploadPackageRequest struct {
 func (s *MicroAppService) UploadPackage(ctx context.Context, componentAppID, authorizerAccessToken string,
 	body *UploadPackageRequest) (*http.Response, error) {
 	u := fmt.Sprintf("v1/microapp/package/upload?component_appid=%v&authorizer_access_token=%v",
-		authorizerAccessToken, componentAppID)
+		componentAppID, authorizerAccessToken)
 
 	req, err := s.client.NewRequest(http.MethodPost, u, body)
 	if err != nil {
@@ -65,7 +65,7 @@ type CommitAuditPackageRequest struct {
 func (s *MicroAppService) CommitAuditPackage(ctx context.Context, componentAppID, authorizerAccessToken string,
 	body *CommitAuditPackageRequest) (*http.Response, error) {
 	u := fmt.Sprintf("v2/microapp/package/audit?component_appid=%v&authorizer_access_token=%v",
-		authorizerAccessToken, componentAppID)
+		componentAppID, authorizerAccessToken)
 
 	req, err := s.client.NewRequest(http.MethodPost, u, body)
 	if err != nil {
@@ -79,7 +79,7 @@ func (s *MicroAppService) CommitAuditPackage(ctx context.Context, componentAppID
 func (s *MicroAppService) ReleasePackage(ctx context.Context, componentAppID, authorizerAccessToken string) (
 	*http.Response, error) {
 	u := fmt.Sprintf("v2/microapp/package/release?component_appid=%v&authorizer_access_token=%v",
-		authorizerAccessToken, componentAppID)
+		componentAppID, authorizerAccessToken)
 
 	req, err := s.client.NewRequest(http.MethodPost, u, nil)
 	if err != nil {
@@ -93,7 +93,7 @@ func (s *MicroAppService) ReleasePackage(ctx context.Context, componentAppID, au
 func (s *MicroAppService) RollbackPackage(ctx context.Context, componentAppID, authorizerAccessToken string) (
 	*http.Response, error) {
 	u := fmt.Sprintf("v2/microapp/package/rollback?component_appid=%v&authorizer_access_token=%v",
-		authorizerAccessToken, componentAppID)
+		componentAppID, authorizerAccessToken)
 
 	req, err := s.client.NewRequest(http.MethodPost, u, nil)
 	if err != nil {
