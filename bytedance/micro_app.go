@@ -100,7 +100,7 @@ func (s *MicroAppService) DownloadQrcode(ctx context.Context, componentAppID, au
 	u := fmt.Sprintf("v1/microapp/app/qrcode?component_appid=%v&authorizer_access_token=%v",
 		authorizerAccessToken, componentAppID)
 
-	req, err := s.client.NewRequest(http.MethodGet, u, body)
+	req, err := s.client.NewRequest(http.MethodPost, u, body)
 	if err != nil {
 		return nil, err
 	}
