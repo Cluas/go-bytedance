@@ -56,17 +56,17 @@ type SubjectAuditInfo struct {
 
 // AppInfo 应用信息
 type AppInfo struct {
-	AppID                  string                  `json:"app_id"`
-	AppType                int                     `json:"app_type"`
-	AppState               int                     `json:"app_state"`
-	AppName                string                  `json:"app_name"`
-	NewNameAuditInfo       *NewNameAuditInfo       `json:"new_name_audit_info"`
-	AppIntro               string                  `json:"app_intro"`
-	NewIntroAuditInfo      *NewIntroAuditInfo      `json:"new_intro_audit_info"`
-	AppIcon                string                  `json:"app_icon"`
-	NewIConAuditInfo       *NewIconAuditInfo       `json:"new_i_con_audit_info"`
-	AppCategoriesAuditInfo *AppCategoriesAuditInfo `json:"app_categories_audit_info"`
-	SubjectAuditInfo       *SubjectAuditInfo       `json:"subject_audit_info"`
+	AppID                  string                    `json:"app_id"`
+	AppType                int                       `json:"app_type"`
+	AppState               int                       `json:"app_state"`
+	AppName                string                    `json:"app_name"`
+	NewNameAuditInfo       *NewNameAuditInfo         `json:"new_name_audit_info"`
+	AppIntro               string                    `json:"app_intro"`
+	NewIntroAuditInfo      *NewIntroAuditInfo        `json:"new_intro_audit_info"`
+	AppIcon                string                    `json:"app_icon"`
+	NewIConAuditInfo       *NewIconAuditInfo         `json:"new_i_con_audit_info"`
+	AppCategoriesAuditInfo []*AppCategoriesAuditInfo `json:"app_categories_audit_info"`
+	SubjectAuditInfo       *SubjectAuditInfo         `json:"subject_audit_info"`
 }
 
 // GetAppInfo 获取应用信息
