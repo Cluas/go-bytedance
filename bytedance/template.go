@@ -56,7 +56,7 @@ type Drafts struct {
 
 // GetDrafts 获取第三方应用的草稿
 func (s *ThirdPartyService) GetDrafts(ctx context.Context, componentAppID, componentAccessToken string) (
-	*Templates, *http.Response, error) {
+	*Drafts, *http.Response, error) {
 	u := fmt.Sprintf(
 		"v1/tp/template/get_tpl_list?component_appid=%v&component_access_token=%v",
 		componentAppID,
@@ -67,12 +67,12 @@ func (s *ThirdPartyService) GetDrafts(ctx context.Context, componentAppID, compo
 	if err != nil {
 		return nil, nil, err
 	}
-	templates := new(Templates)
-	resp, err := s.client.Do(ctx, req, templates)
+	drafts := new(Drafts)
+	resp, err := s.client.Do(ctx, req, drafts)
 	if err != nil {
 		return nil, resp, err
 	}
-	return templates, resp, nil
+	return drafts, resp, nil
 }
 
 // AddTemplateRequest 添加模版请求
