@@ -84,7 +84,9 @@ type AddTemplateRequest struct {
 func (s *ThirdPartyService) AddTemplate(ctx context.Context, componentAppID, componentAccessToken string,
 	body *AddTemplateRequest) (*http.Response, error) {
 	u := fmt.Sprintf("v1/tp/template/add_tpl?component_appid=%v&component_access_token=%v",
-		componentAccessToken, componentAppID)
+		componentAppID,
+		componentAccessToken,
+	)
 
 	req, err := s.client.NewRequest(http.MethodPost, u, body)
 	if err != nil {
@@ -103,7 +105,9 @@ type DeleteTemplateRequest struct {
 func (s *ThirdPartyService) DeleteTemplate(ctx context.Context, componentAppID, componentAccessToken string,
 	body *DeleteTemplateRequest) (*http.Response, error) {
 	u := fmt.Sprintf("v1/tp/template/del_tpl?component_appid=%v&component_access_token=%v",
-		componentAccessToken, componentAppID)
+		componentAppID,
+		componentAccessToken,
+	)
 
 	req, err := s.client.NewRequest(http.MethodPost, u, body)
 	if err != nil {
