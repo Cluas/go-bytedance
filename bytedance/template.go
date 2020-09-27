@@ -58,7 +58,7 @@ type Drafts struct {
 func (s *ThirdPartyService) GetDrafts(ctx context.Context, componentAppID, componentAccessToken string) (
 	*Drafts, *http.Response, error) {
 	u := fmt.Sprintf(
-		"v1/tp/template/get_tpl_list?component_appid=%v&component_access_token=%v",
+		"v1/tp/template/get_draft_list?component_appid=%v&component_access_token=%v",
 		componentAppID,
 		componentAccessToken,
 	)
