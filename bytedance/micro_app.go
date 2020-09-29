@@ -194,15 +194,20 @@ type ServerDomain struct {
 
 // ModifyServerDomain 修改服务域名
 func (s *MicroAppService) ModifyServerDomain(ctx context.Context, componentAppID, authorizerAccessToken string,
-	body *ModifyServerDomainRequest) (*http.Response, error) {
+	body *ModifyServerDomainRequest) (*ServerDomain, *http.Response, error) {
 	u := fmt.Sprintf("v1/microapp/app/modify_server_domain?component_appid=%v&authorizer_access_token=%v",
 		componentAppID, authorizerAccessToken)
 
 	req, err := s.client.NewRequest(http.MethodPost, u, body)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	return s.client.Do(ctx, req, nil)
+	serverDomain := new(ServerDomain)
+	resp, err := s.client.Do(ctx, req, serverDomain)
+	if err != nil {
+		return nil, resp, err
+	}
+	return serverDomain, resp, err
 }
 
 // ModifyWebviewDomainRequest 修改webview域名
