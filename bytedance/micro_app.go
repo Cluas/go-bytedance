@@ -228,10 +228,14 @@ func (s *MicroAppService) ModifyWebviewDomain(ctx context.Context, componentAppI
 		return nil, nil, err
 	}
 	var webview []string
-	resp, err := s.client.Do(ctx, req, &webview)
-	if err != nil {
-		return nil, resp, err
+	if body.Action == "get" {
+		resp, err := s.client.Do(ctx, req, &webview)
+		if err != nil {
+			return nil, resp, err
+		}
 	}
+	resp, err := s.client.Do(ctx, req, nil)
+
 	return webview, resp, err
 }
 
