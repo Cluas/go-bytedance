@@ -78,7 +78,7 @@ func (s *MicroAppService) CommitAuditPackage(ctx context.Context, componentAppID
 // 为授权小程序发布代码（发布成功后，授权小程序具有线上版本）
 func (s *MicroAppService) ReleasePackage(ctx context.Context, componentAppID, authorizerAccessToken string) (
 	*http.Response, error) {
-	u := fmt.Sprintf("v2/microapp/package/release?component_appid=%v&authorizer_access_token=%v",
+	u := fmt.Sprintf("v1/microapp/package/release?component_appid=%v&authorizer_access_token=%v",
 		componentAppID, authorizerAccessToken)
 
 	req, err := s.client.NewRequest(http.MethodPost, u, nil)
@@ -92,7 +92,7 @@ func (s *MicroAppService) ReleasePackage(ctx context.Context, componentAppID, au
 // 为授权小程序回退代码版本，此操作可能需要等待一会（如果可以回退，执行成功后，授权小程序将回退至上一个线上版本）
 func (s *MicroAppService) RollbackPackage(ctx context.Context, componentAppID, authorizerAccessToken string) (
 	*http.Response, error) {
-	u := fmt.Sprintf("v2/microapp/package/rollback?component_appid=%v&authorizer_access_token=%v",
+	u := fmt.Sprintf("v1/microapp/package/rollback?component_appid=%v&authorizer_access_token=%v",
 		componentAppID, authorizerAccessToken)
 
 	req, err := s.client.NewRequest(http.MethodPost, u, nil)
