@@ -131,7 +131,7 @@ func (s *MicroAppService) ModifyAppName(ctx context.Context, componentAppID, aut
 	u := fmt.Sprintf("v1/microapp/app/modify_app_name?component_appid=%v&authorizer_access_token=%v",
 		componentAppID, authorizerAccessToken)
 
-	req, err := s.client.NewRequest(http.MethodGet, u, body)
+	req, err := s.client.NewRequest(http.MethodPost, u, body)
 	if err != nil {
 		return nil, err
 	}
@@ -149,7 +149,7 @@ func (s *MicroAppService) ModifyIntro(ctx context.Context, componentAppID, autho
 	u := fmt.Sprintf("v1/microapp/app/modify_app_intro?component_appid=%v&authorizer_access_token=%v",
 		componentAppID, authorizerAccessToken)
 
-	req, err := s.client.NewRequest(http.MethodGet, u, body)
+	req, err := s.client.NewRequest(http.MethodPost, u, body)
 	if err != nil {
 		return nil, err
 	}
@@ -167,7 +167,7 @@ func (s *MicroAppService) ModifyAppIcon(ctx context.Context, componentAppID, aut
 	u := fmt.Sprintf("v1/microapp/app/modify_app_intro?component_appid=%v&authorizer_access_token=%v",
 		componentAppID, authorizerAccessToken)
 
-	req, err := s.client.NewRequest(http.MethodGet, u, body)
+	req, err := s.client.NewRequest(http.MethodPost, u, body)
 	if err != nil {
 		return nil, err
 	}
@@ -198,7 +198,7 @@ func (s *MicroAppService) ModifyServerDomain(ctx context.Context, componentAppID
 	u := fmt.Sprintf("v1/microapp/app/modify_server_domain?component_appid=%v&authorizer_access_token=%v",
 		componentAppID, authorizerAccessToken)
 
-	req, err := s.client.NewRequest(http.MethodGet, u, body)
+	req, err := s.client.NewRequest(http.MethodPost, u, body)
 	if err != nil {
 		return nil, err
 	}
@@ -214,15 +214,20 @@ type ModifyWebviewDomainRequest struct {
 
 // ModifyWebviewDomain 修改webview域名
 func (s *MicroAppService) ModifyWebviewDomain(ctx context.Context, componentAppID, authorizerAccessToken string,
-	body *ModifyWebviewDomainRequest) (*http.Response, error) {
+	body *ModifyWebviewDomainRequest) ([]string, *http.Response, error) {
 	u := fmt.Sprintf("v1/microapp/app/modify_webview_domain?component_appid=%v&authorizer_access_token=%v",
 		componentAppID, authorizerAccessToken)
 
-	req, err := s.client.NewRequest(http.MethodGet, u, body)
+	req, err := s.client.NewRequest(http.MethodPost, u, body)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	return s.client.Do(ctx, req, nil)
+	var webview []string
+	resp, err := s.client.Do(ctx, req, &webview)
+	if err != nil {
+		return nil, resp, err
+	}
+	return webview, resp, err
 }
 
 // Session 返回
