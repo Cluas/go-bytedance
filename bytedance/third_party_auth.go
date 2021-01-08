@@ -153,7 +153,7 @@ type RetrieveAuthorizationCodeResponse struct {
 func (s *ThirdPartyService) RetrieveAuthorizationCode(ctx context.Context, componentAppID, componentAccessToken,
 	authorizationAppID string) (*RetrieveAuthorizationCodeResponse, *http.Response, error) {
 	u := fmt.Sprintf(
-		"v1/auth/retrieve?component_appid=%v&component_access_token=%v&authorzation_appid=%v",
+		"v1/auth/retrieve?component_appid=%v&component_access_token=%v&authorization_appid=%v",
 		componentAppID,
 		componentAccessToken,
 		authorizationAppID,
